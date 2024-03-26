@@ -98,6 +98,22 @@ def analyze_sample(sample_path, output_folder, run_clamav=False):
                     analyze_sample(file_path, output_folder, run_clamav)
 
 def main():
+    print(
+        """
+
+
+                     __ _                                  _       _            
+                    / _(_)                                (_)     | |           
+  _ __ _____      _| |_ _ _ __   __ _  ___ _ __ _ __  _ __ _ _ __ | |_ ___ _ __ 
+ | '_ ` _ \ \ /\ / /  _| | '_ \ / _` |/ _ \ '__| '_ \| '__| | '_ \| __/ _ \ '__|
+ | | | | | \ V  V /| | | | | | | (_| |  __/ |  | |_) | |  | | | | | ||  __/ |   
+ |_| |_| |_|\_/\_/ |_| |_|_| |_|\__, |\___|_|  | .__/|_|  |_|_| |_|\__\___|_|   
+               ______            __/ |         | |                              
+              |______|          |___/          |_|                              
+
+
+        """
+    )
     parser = argparse.ArgumentParser(description="Script for calculating the MD5, SHA-1, SHA-256, SSDEEP and IMPHASH hashes of a file or folder.")
     parser.add_argument("sample", help="Path to a file or folder containing samples to analyze.")
     parser.add_argument("--clamav", action="store_true", help="Do the freshclam and the ClamAV scan.")
