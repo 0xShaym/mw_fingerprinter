@@ -79,10 +79,13 @@ def analyze_sample(sample_path, output_folder, run_clamav=False):
         except Exception as e:
             print("Try strings but an error occurs : ", e)
         try:
-            hexdump_head = subprocess.run(["hexdump", "-C", sample_path], capture_output=True, text=True).stdout.strip()
-            hexdump_tail = subprocess.run(["hexdump", "-C", sample_path], capture_output=True, text=True).stdout.strip()
+            hexdump_output = subprocess.run(["hexdump", "-C", sample_path], capture_output=True, text=True).stdout.strip()
+            hexdump_head = "\n".join(hexdump_output.splitlines()[:20])  # Keep the first 20 lines (head)
+            hexdump_tail = "\n".join(hexdump_output.splitlines()[-20:])  # Keep the last 20 lines (tail)
         except Exception as e:
             print("Try hexdump but an error occurs : ", e)
+            hexdump_head = ""
+            hexdump_tail = ""
         md_content = generate_md_content(sample_path, md5, sha1, sha256, ssdeep_hash, imphash, clamav_result, trid_result, file_info, strings_output, hexdump_head, hexdump_tail)
         sample_name = os.path.splitext(os.path.basename(sample_path))[0] + ".md"
         output_path = os.path.join(output_folder, sample_name)
